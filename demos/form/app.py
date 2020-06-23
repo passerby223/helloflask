@@ -14,7 +14,7 @@ from flask_dropzone import Dropzone
 from flask_wtf.csrf import validate_csrf
 from wtforms import ValidationError
 
-from forms import LoginForm, FortyTwoForm, NewPostForm, UploadForm, MultiUploadForm, SigninForm, \
+from demos.form.forms import LoginForm, FortyTwoForm, NewPostForm, UploadForm, MultiUploadForm, SigninForm, \
     RegisterForm, SigninForm2, RegisterForm2, RichTextForm
 
 app = Flask(__name__)
