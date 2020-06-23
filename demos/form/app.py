@@ -15,12 +15,15 @@ from flask_wtf.csrf import validate_csrf
 from wtforms import ValidationError
 
 from forms import LoginForm, FortyTwoForm, NewPostForm, UploadForm, MultiUploadForm, SigninForm, \
-    RegisterForm, SigninForm2, RegisterForm2, RichTextForm
+    RegisterForm, SigninForm2, RegisterForm2, RichTextForm, InformationStatisticsForm
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'secret string')
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
+
+'''设置`WTF_I18N_ENABLED`为False, 这会让Flask-WTF使用WTForms内置的错误消息翻译(设置内置错误消息语言为中文)'''
+app.config['WTF_I18N_ENABLED'] = False
 
 # Custom config
 app.config['UPLOAD_PATH'] = os.path.join(app.root_path, 'uploads')
@@ -56,6 +59,17 @@ def html():
         flash('Welcome home, %s!' % username)
         return redirect(url_for('index'))
     return render_template('pure_html.html')
+
+
+@app.route('/info', methods=['GET', 'POST'])
+def info():
+    '''设置内置错误消息语言为中文'''
+    form = InformationStatisticsForm()
+    if form.validate_on_submit():
+        username = form.name.data
+        flash(f'用户{username}提交个人信息成功!')
+        return redirect(url_for('index'))
+    return render_template('set_the_builtIn_error_message_language_to_chinese.html', form=form)
 
 
 @app.route('/basic', methods=['GET', 'POST'])

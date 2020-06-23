@@ -12,6 +12,19 @@ from wtforms import StringField, PasswordField, BooleanField, IntegerField, \
     TextAreaField, SubmitField, MultipleFileField
 from wtforms.validators import DataRequired, Length, ValidationError, Email
 
+'''
+设置内置错误消息语言为中文
+'''
+class MyBaseForm(FlaskForm):
+    class Meta:
+        locales = ['zh']
+
+
+class InformationStatisticsForm(MyBaseForm):
+    name = StringField('姓名', validators=[DataRequired()])
+    age = IntegerField('年龄', validators=[DataRequired()])
+    submit = SubmitField('提交')
+
 
 # 4.2.1 basic form example
 class LoginForm(FlaskForm):

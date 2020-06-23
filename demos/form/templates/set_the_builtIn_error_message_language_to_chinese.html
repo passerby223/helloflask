@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post">
+        {{ form.csrf_token }}
+        {{ form.name.label }}<br>
+        {{ form.name }}<br>
+        {% if form.name.errors %}
+            {% for message in form.name.errors %}
+                <small class="error">{{ message }}</small><br>
+            {% endfor %}
+        {% endif %}
+        {{ form.age.label }}<br>
+        {{ form.age }}<br>
+        {% if form.age.errors %}
+            {% for message in form.age.errors %}
+                <small class="error">{{ message }}</small><br>
+            {% endfor %}
+        {% endif %}
+        {{ form.submit }}<br>
+    </form>
+{% endblock %}
